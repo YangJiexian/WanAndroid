@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.wanandroid.example.base.BaseActivity;
+import com.wanandroid.example.base.BaseAdapter;
 import com.wanandroid.example.ui.fragment.MainFragment;
 import com.wanandroid.example.R;
 import com.wanandroid.example.ui.KnowledgeFragment;
@@ -52,6 +53,14 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
         initUI();
+        initData();
+    }
+
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+        BaseAdapter baseAdapter = new BaseAdapter();
     }
 
     /**
