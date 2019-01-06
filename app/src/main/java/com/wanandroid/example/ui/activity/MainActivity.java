@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.wanandroid.example.base.BaseActivity;
 import com.wanandroid.example.ui.fragment.MainFragment;
 import com.wanandroid.example.R;
 import com.wanandroid.example.ui.KnowledgeFragment;
@@ -24,7 +25,7 @@ import butterknife.Unbinder;
  * @author yangjx
  * @date 2019/1/5
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     Unbinder unbinder;
     @BindView(R.id.main_tab_layout)

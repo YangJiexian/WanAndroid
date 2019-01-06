@@ -22,6 +22,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wanandroid.example.R;
+import com.wanandroid.example.base.BaseFragment;
 import com.wanandroid.example.core.BaseUrl;
 import com.wanandroid.example.core.bean.ArticleListData;
 import com.wanandroid.example.core.bean.BannerListData;
@@ -45,7 +46,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends BaseFragment {
 
     private Banner banner;
     private Context mContext;
