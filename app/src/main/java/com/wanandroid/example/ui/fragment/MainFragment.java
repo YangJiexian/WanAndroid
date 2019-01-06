@@ -13,6 +13,14 @@ import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wanandroid.example.R;
 import com.wanandroid.example.core.BaseUrl;
 import com.wanandroid.example.core.bean.ArticleListData;
@@ -28,6 +36,7 @@ import com.youth.banner.listener.OnBannerListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -42,22 +51,29 @@ public class MainFragment extends Fragment {
     private Context mContext;
     private ArticleListAdapter articleListAdapter;
     private List<ArticleListData.ArticleListBean.ArticleBean> articleBeanList;
+    private int currentNum;
+    private Retrofit retrofit;
+    private Call<ArticleListData> callArticle;
+    private WanAndroidApis wanAndroidApis;
 
     @BindView(R.id.main_fragment_recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.smart_refresh_layout)
+    SmartRefreshLayout smartRefreshLayout;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main,null);
-        ButterKnife.bind(view);
-        mRecyclerView = view.findViewById(R.id.main_fragment_recycler_view);
+        ButterKnife.bind(this,view);
         mContext = getActivity();
         initView();
         return view;
     }
 
     private void initView() {
+        smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()).setSpinnerStyle(SpinnerStyle.Scale));
         articleBeanList = new ArrayList<>();
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.head_banner,null);
         banner = linearLayout.findViewById(R.id.head_banner);
@@ -69,6 +85,42 @@ public class MainFragment extends Fragment {
         articleListAdapter.addHeaderView(banner);
         mRecyclerView.setAdapter(articleListAdapter);
         initBanner();
+        setRefresh();
+    }
+
+    private void setRefresh() {
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                currentNum = 0;
+                getBannerData();
+                refreshLayout.finishRefresh(1000);
+            }
+        });
+        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                currentNum++;
+                loadMore();
+                refreshLayout.finishLoadMore(1000);
+            }
+        });
+    }
+
+    private void loadMore() {
+        callArticle = wanAndroidApis.getArticleList(currentNum);
+        callArticle.enqueue(new Callback<ArticleListData>() {
+            @Override
+            public void onResponse(Call<ArticleListData> call, Response<ArticleListData> response) {
+                articleBeanList = response.body().getData().getDatas();
+                articleListAdapter.addData(articleBeanList);
+            }
+
+            @Override
+            public void onFailure(Call<ArticleListData> call, Throwable t) {
+
+            }
+        });
     }
 
     private void initBanner() {
@@ -76,12 +128,12 @@ public class MainFragment extends Fragment {
     }
 
     private void getBannerData() {
-        Retrofit retrofit = new Retrofit.Builder()
+        retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BaseUrl.service)
                 .build();
 
-        WanAndroidApis wanAndroidApis = retrofit.create(WanAndroidApis.class);
+        wanAndroidApis = retrofit.create(WanAndroidApis.class);
         Call<BannerListData> callBanner = wanAndroidApis.getBannerData();
         callBanner.enqueue(new Callback<BannerListData>() {
             @Override
@@ -94,11 +146,12 @@ public class MainFragment extends Fragment {
 
             }
         });
-        Call<ArticleListData> callArticle = wanAndroidApis.getArticleList(1);
+        callArticle = wanAndroidApis.getArticleList(currentNum);
         callArticle.enqueue(new Callback<ArticleListData>() {
             @Override
             public void onResponse(Call<ArticleListData> call, Response<ArticleListData> response) {
-                articleListAdapter.replaceData(response.body().getData().getDatas());
+                articleBeanList = response.body().getData().getDatas();
+                articleListAdapter.replaceData(articleBeanList);
             }
 
             @Override
