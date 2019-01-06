@@ -38,10 +38,10 @@ public class MainActivity extends BaseActivity {
     TabLayout mainTablayout;
     @BindView(R.id.main_view_pager)
     ViewPager viewPager;
-    @BindView(R.id.common_toolbar_title_tv)
-    TextView commonToolbarTitle;
-    @BindView(R.id.common_toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.common_toolbar_title_tv)
+//    TextView commonToolbarTitle;
+//    @BindView(R.id.common_toolbar)
+//    Toolbar toolbar;
 
     private MainFragment mainFragment;
 
@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initUI() {
-        commonToolbarTitle.setText("wanandroid");
+        //commonToolbarTitle.setText("wanandroid");
         //toolbar.setNavigationIcon(null);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
