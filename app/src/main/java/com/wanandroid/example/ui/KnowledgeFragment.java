@@ -1,4 +1,4 @@
-package com.wanandroid.example;
+package com.wanandroid.example.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,13 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MainFragment extends Fragment {
+import com.wanandroid.example.R;
+
+public class KnowledgeFragment extends Fragment {
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main,null);
+        View view = inflater.inflate(R.layout.fragment_knowledge,null);
 
         return view;
     }
