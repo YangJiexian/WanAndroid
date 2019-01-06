@@ -3,14 +3,14 @@ package com.wanandroid.example.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.wanandroid.example.R;
+import com.wanandroid.example.base.BaseFragment;
 
-public class ProjectFragment extends Fragment {
+public class ProjectFragment extends BaseFragment {
 
 
     @Nullable

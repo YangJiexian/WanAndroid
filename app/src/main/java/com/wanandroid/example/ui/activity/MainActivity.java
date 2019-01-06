@@ -1,5 +1,8 @@
 package com.wanandroid.example.ui.activity;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,10 +13,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
+import com.wanandroid.example.base.BaseActivity;
 import com.wanandroid.example.ui.fragment.MainFragment;
 import com.wanandroid.example.R;
 import com.wanandroid.example.ui.KnowledgeFragment;
+import com.wanandroid.example.utils.BarUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,29 +30,37 @@ import butterknife.Unbinder;
  * @author yangjx
  * @date 2019/1/5
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     Unbinder unbinder;
     @BindView(R.id.main_tab_layout)
     TabLayout mainTablayout;
     @BindView(R.id.main_view_pager)
     ViewPager viewPager;
+    @BindView(R.id.common_toolbar_title_tv)
+    TextView commonToolbarTitle;
+    @BindView(R.id.common_toolbar)
+    Toolbar toolbar;
 
     private MainFragment mainFragment;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
-
         initUI();
     }
 
     /**
      * 初始化 UI
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initUI() {
+        commonToolbarTitle.setText("wanandroid");
+        //toolbar.setNavigationIcon(null);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
