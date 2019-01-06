@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.wanandroid.example.R;
 import com.wanandroid.example.base.BaseActivity;
 
-public class RegisterActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
