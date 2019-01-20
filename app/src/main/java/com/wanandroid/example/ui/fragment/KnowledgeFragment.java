@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.wanandroid.example.R;
 import com.wanandroid.example.base.BaseFragment;
 
-public class ProjectFragment extends BaseFragment {
+public class KnowledgeFragment extends BaseFragment {
 
 
     @Nullable

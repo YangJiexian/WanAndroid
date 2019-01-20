@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
+    implementation 'com.androidkun:XTabLayout:1.1.4'
 
     //others
     implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'

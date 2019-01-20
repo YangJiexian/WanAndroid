@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +22,7 @@ import com.wanandroid.example.R;
 import com.wanandroid.example.base.BaseFragment;
 import com.wanandroid.example.core.BaseUrl;
 import com.wanandroid.example.core.bean.ArticleListData;
-import com.wanandroid.example.core.bean.BannerListData;
+import com.wanandroid.example.core.bean.BannerBean;
 import com.wanandroid.example.core.http.WanAndroidApis;
 import com.wanandroid.example.ui.adapter.ArticleListAdapter;
 import com.wanandroid.example.utils.GlideImageLoader;
@@ -132,15 +131,15 @@ public class MainFragment extends BaseFragment {
                 .build();
 
         wanAndroidApis = retrofit.create(WanAndroidApis.class);
-        Call<BannerListData> callBanner = wanAndroidApis.getBannerData();
-        callBanner.enqueue(new Callback<BannerListData>() {
+        Call<BannerBean> callBanner = wanAndroidApis.getBannerData();
+        callBanner.enqueue(new Callback<BannerBean>() {
             @Override
-            public void onResponse(Call<BannerListData> call, Response<BannerListData> response) {
+            public void onResponse(Call<BannerBean> call, Response<BannerBean> response) {
                 showBanner(response.body().getData());
             }
 
             @Override
-            public void onFailure(Call<BannerListData> call, Throwable t) {
+            public void onFailure(Call<BannerBean> call, Throwable t) {
 
             }
         });
@@ -159,11 +158,11 @@ public class MainFragment extends BaseFragment {
         });
     }
 
-    public void showBanner(List<BannerListData.BannerDataBean> BannerDataBean){
+    public void showBanner(List<BannerBean.BannerDataBean> BannerDataBean){
         List mBannerTitleList = new ArrayList<>();
         List<String> bannerImageList = new ArrayList<>();
         List mBannerUrlList = new ArrayList<>();
-        for (BannerListData.BannerDataBean bannerData : BannerDataBean) {
+        for (BannerBean.BannerDataBean bannerData : BannerDataBean) {
             mBannerTitleList.add(bannerData.getTitle());
             bannerImageList.add(bannerData.getImagePath());
             mBannerUrlList.add(bannerData.getUrl());

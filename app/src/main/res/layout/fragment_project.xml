@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.wanandroid.example.ui.activity.MainActivity">
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/smart_refresh_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.androidkun.xtablayout.XTabLayout
+        android:id="@+id/xTablayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:xTabMode="scrollable"
+        app:xTabIndicatorColor="#0f0"
+        app:xTabIndicatorHeight="4dp"
+        app:xTabIndicatorWidth="15dp"
+        app:xTabSelectedTextColor="#f00"
+        app:xTabTextColor="#000"
+        app:xTabTextSize="15sp"
+        app:xTabSelectedTextSize="20sp"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/project_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/main_fragment_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-
-
-</RelativeLayout>
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

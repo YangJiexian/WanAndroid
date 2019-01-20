@@ -8,19 +8,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.wanandroid.example.base.BaseActivity;
 import com.wanandroid.example.base.BaseAdapter;
 import com.wanandroid.example.ui.fragment.MainFragment;
 import com.wanandroid.example.R;
-import com.wanandroid.example.ui.KnowledgeFragment;
-import com.wanandroid.example.utils.BarUtils;
+import com.wanandroid.example.ui.fragment.ProjectTabFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,13 +72,13 @@ public class MainActivity extends BaseActivity {
             public Fragment getItem(int i) {
                 switch (i){
                     case 0:
-                        return new MainFragment();
+                        return new ProjectTabFragment();
                     case 1:
-                        return new KnowledgeFragment();
+                        return new MainFragment();
                     case 2:
-                        return new KnowledgeFragment();
+                        return new MainFragment();
                     case 3:
-                        return new KnowledgeFragment();
+                        return new ProjectTabFragment();
                     default:
                         return new MainFragment();
                 }
